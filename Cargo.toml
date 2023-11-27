@@ -1,0 +1,14 @@
+[package]
+name = "fastvs"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "fastvs"
+crate-type = ["cdylib"]
+path = "src/lib.rs"
+
+[dependencies]
+arrow = { version = "49.0.0", features = ["pyarrow", "ffi"] }
+rayon = "1.8.0"
+pyo3 = { version = "0.20", features = ["extension-module"] }
