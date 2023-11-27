@@ -22,7 +22,7 @@ Searches a PyArrow Table for the k nearest neighbors of a query point.
 
 - `table` (pyarrow.Table): The table to search.
 - `column_name` (str): This column should be a list or np array type column, where each element is a vector of floats.
-- `query_point` (list): The query point.
+- `query_point` (list or np array): The query point.
 - `k` (int): The number of nearest neighbors to return.
 - `metric` (str): The metric to use for the search (e.g., "euclidean", "manhattan", "cosine_similarity", "inner_product").
 
@@ -47,7 +47,7 @@ Searches a Pandas DataFrame for the k nearest neighbors of a query point. This f
 
 - `df` (pandas.DataFrame): The DataFrame to search.
 - `column_name` (str): The column name to search. This column should be a list or np array type column, where each element is a vector of floats.
-- `query_point` (list): The query point.
+- `query_point` (list or np array): The query point.
 - `k` (int): The number of nearest neighbors to return.
 - `metric` (str): The metric to use for the search.
 
@@ -73,7 +73,7 @@ Applies a distance function to a PyArrow table and returns an array of distances
 
 - `table` (pyarrow.Table): The table to search.
 - `column_name` (str): The column name to search. This column should be a list or np array type column, where each element is a vector of floats.
-- `query_point` (list): The query point.
+- `query_point` (list or np array): The query point.
 - `metric` (str): The metric to use for the search.
 
 #### Returns
@@ -98,7 +98,7 @@ Applies a distance function to a Pandas DataFrame and returns a Series of distan
 
 - `df` (pandas.DataFrame): The DataFrame to search.
 - `column_name` (str): The column name to search. This column should be a list or np array type column, where each element is a vector of floats.
-- `query_point` (list): The query point.
+- `query_point` (list or np array): The query point.
 - `metric` (str): The metric to use for the search.
 
 #### Returns
