@@ -7,7 +7,7 @@ pub mod pdistance;
 
 use std::sync::Arc;
 
-use arrow::array::{Array, Float64Array, ListArray, PrimitiveArray, PrimitiveBuilder};
+use arrow::array::{Array, ArrayData, Float64Array, ListArray, PrimitiveArray};
 use arrow::datatypes::Float64Type;
 use arrow::error::ArrowError;
 use arrow::ffi_stream::ArrowArrayStreamReader;
@@ -17,27 +17,6 @@ use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::types::PyString;
 use rayon::prelude::*;
-
-use arrow::array::ArrayData;
-use arrow::buffer::Buffer;
-use arrow::datatypes::{DataType, ToByteSlice};
-use pyo3::types::PyAny;
-
-// // Define the distance function type
-// type DistanceFn = dyn Fn(&PrimitiveArray<Float64Type>, &PrimitiveArray<Float64Type>) -> Result<f64, ArrowError>
-//     + Sync
-//     + Send;
-
-// // Function to create the distance function based on metric
-// fn create_distance_fn(metric: &str) -> Result<Arc<DistanceFn>, PyValueError> {
-//     match metric {
-//         "euclidean" => Ok(Arc::new(euclidean_distance)),
-//         "manhattan" => Ok(Arc::new(manhattan_distance)),
-//         "inner_product" => Ok(Arc::new(inner_product)),
-//         "cosine_similarity" => Ok(Arc::new(cosine_similarity)),
-//         _ => Err(PyValueError::new_err("Invalid distance metric")),
-//     }
-// }
 
 // Helper function to calculate distances
 fn compute_distance_batch(
@@ -144,9 +123,14 @@ pub fn knn(
     let batch_results = compute_distance_batch(reader, column_name, query_point, metric)?;
     let ascending = matches!(metric, "euclidean" | "manhattan");
 
-    let mut results = batch_results.into_par_iter().flatten().collect::<Vec<_>>();
-
-    results.retain(|&(_, ref distance)| distance.is_ok());
+    // Process the batch results in a single pipeline
+    let mut results: Vec<_> = batch_results
+        .into_par_iter()
+        .flatten() // Flatten the nested results
+        .filter_map(|(index, dist_result)| {
+            dist_result.ok().map(|distance| (index, distance)) // Filter and unwrap the Ok results
+        })
+        .collect();
 
     // Check if results are empty after filtering
     if results.is_empty() {
@@ -155,32 +139,16 @@ pub fn knn(
         ));
     }
 
-    // Sort the results
-    // TODO: See if we can use Arrow for partial sorting
+    // Sort the results based on distance
     if ascending {
-        results.par_sort_by(|a, b| {
-            a.1.as_ref()
-                .unwrap()
-                .partial_cmp(&b.1.as_ref().unwrap())
-                .unwrap()
-        });
+        results.par_sort_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
     } else {
-        results.par_sort_by(|a, b| {
-            b.1.as_ref()
-                .unwrap()
-                .partial_cmp(&a.1.as_ref().unwrap())
-                .unwrap()
-        });
+        results.par_sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
     }
 
     // Separate the indices and distances into two vectors
-    let (nearest_neighbors, distances): (Vec<usize>, Vec<f64>) = results
-        .into_iter()
-        .take(k)
-        .filter_map(|(index, distance_result)| {
-            distance_result.ok().map(|distance| (index, distance))
-        })
-        .unzip();
+    let (nearest_neighbors, distances): (Vec<usize>, Vec<f64>) =
+        results.into_iter().take(k).unzip();
 
     Ok((nearest_neighbors, distances))
 }
@@ -199,12 +167,6 @@ pub fn distance(
         .flatten() // Flatten to get a single iterator over all results
         .filter_map(|(_, dist_result)| dist_result.ok()) // Keep only Ok values
         .collect();
-
-    // // Extract and collect the distances into a Vec<f64>, filtering out errors
-    // let distances: Vec<f64> = computed_distances
-    //     .into_iter()
-    //     .filter_map(|(_, dist)| dist.ok())
-    //     .collect();
 
     // Turn this into a Float64Array
     let distance_array = Float64Array::from(distances);
