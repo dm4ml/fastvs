@@ -1,6 +1,6 @@
 # FastVS
 
-[![fastvs](https://github.com/dm4ml/fastvs/workflows/ci/badge.svg)](https://github.com/dm4ml/fastvs/actions?query=workflow:"ci")
+[![fastvs](https://github.com/dm4ml/fastvs/workflows/CI/badge.svg)](https://github.com/dm4ml/fastvs/actions?query=workflow:"CI")
 [![PyPI version](https://badge.fury.io/py/fastvs.svg?branch=main&kill_cache=1)](https://badge.fury.io/py/fastvs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
