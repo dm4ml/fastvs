@@ -1,5 +1,5 @@
 """
-This file contains helper functions to do nearest neighbor search on
+This file contains functions to do nearest neighbor search on
 PyArrow Tables and Pandas DataFrames.
 """
 
