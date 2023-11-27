@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastvs"
-version = "0.1.4"
+version = "0.1.6"
 description = "Vector search on pandas dataframes."
 authors = ["Shreya Shankar <shreyashankar@berkeley.edu>"]
 license = "MIT"
