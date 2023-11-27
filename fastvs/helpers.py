@@ -3,7 +3,7 @@ This file contains helper functions to do nearest neighbor search on
 PyArrow Tables and Pandas DataFrames.
 """
 
-from .fastvs import nearest_neighbor_search
+from .fastvs import knn
 import pyarrow as pa
 import pandas as pd
 from typing import List, Tuple
@@ -42,7 +42,7 @@ def search_table(
     """
     # Turn table into a RecordBatchReader.
     reader = table.to_reader()
-    return nearest_neighbor_search(reader, column_name, query_point, k, metric)
+    return knn(reader, column_name, query_point, k, metric)
 
 
 def search_df(

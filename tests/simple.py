@@ -1,7 +1,7 @@
 import pyarrow as pa
 import pandas
 import numpy as np
-from fastvs import nearest_neighbor_search
+from fastvs import knn
 import random
 import time
 import pyarrow.compute as pc
@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity as cosine
 DIM = 1536
 
 
-def create_large_dataset(num_rows=1_000_000, num_dims=DIM):
+def create_dataset(num_rows=1_000_000, num_dims=DIM):
     # Generate a large dataset with num_rows rows and num_dims dimensions
     data = np.random.rand(num_rows, num_dims)
 
@@ -22,7 +22,7 @@ def create_large_dataset(num_rows=1_000_000, num_dims=DIM):
 
 
 def create_table():
-    arrow_array = create_large_dataset()
+    arrow_array = create_dataset(num_rows=1000)
 
     table = pa.Table.from_arrays([arrow_array], names=["points"])
     return table
@@ -30,7 +30,7 @@ def create_table():
 
 def test_basic_functionality(reader, query_point, k, metric="euclidean"):
     # Query point should have the same dimensions as the dataset
-    results, dists = nearest_neighbor_search(reader, "points", query_point, k, metric)
+    results, dists = knn(reader, "points", query_point, k, metric)
     return results
     # The assert might need to be adjusted depending on the random data
     # assert results == [expected indices]
