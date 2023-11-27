@@ -13,3 +13,6 @@ release:
 install:
 	pip install poetry
 	poetry install
+
+build:
+	poetry run maturin develop --release
