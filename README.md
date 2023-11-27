@@ -133,7 +133,7 @@ FastVS supports various distance metrics, including:
 The Euclidean distance between two points $P$ and $Q$ in $N$-dimensional space, with $P = (p_1, p_2, ..., p_N)$ and $Q = (q_1, q_2, ..., q_N)$, is defined as:
 
 ```math
- d(P, Q) = \sqrt{\sum\_{i=1}^{N} (p_i - q_i)^2}
+ d(P, Q) = \sqrt{\sum_{i=1}^{N} (p_i - q_i)^2}
 ```
 
 #### Manhattan Distance
@@ -141,7 +141,7 @@ The Euclidean distance between two points $P$ and $Q$ in $N$-dimensional space, 
 The Manhattan distance (also known as L1 norm) between two points $P$ and $Q$ in $N$-dimensional space is the sum of the absolute differences of their Cartesian coordinates:
 
 ```math
- d(P, Q) = \sum\_{i=1}^{N} |p_i - q_i|
+ d(P, Q) = \sum_{i=1}^{N} |p_i - q_i|
 ```
 
 #### Cosine Similarity
@@ -159,7 +159,7 @@ where$P \cdot Q$is the dot product of vectors $P$ and $Q$, and $|P|$ and $|Q|$ a
 The inner product (or dot product) between two vectors$P$and$Q$in an$N$-dimensional space is defined as the sum of the products of their corresponding components:
 
 ```math
- \text{Inner Product}(P, Q) = P \cdot Q = \sum\_{i=1}^{N} p_i q_i
+ \text{Inner Product}(P, Q) = P \cdot Q = \sum_{i=1}^{N} p_i q_i
 ```
 
 ## Contribution
