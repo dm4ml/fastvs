@@ -1,5 +1,9 @@
 # FastVS
 
+[![fastvs](https://github.com/dm4ml/fastvs/workflows/ci/badge.svg)](https://github.com/dm4ml/fastvs/actions?query=workflow:"ci")
+[![PyPI version](https://badge.fury.io/py/fastvs.svg?branch=main&kill_cache=1)](https://badge.fury.io/py/fastvs)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 FastVS (Fast Vector Search) is a Python library designed for exact vector search in dataframes or tables. It provides functionality to work with both PyArrow Tables and Pandas DataFrames, allowing users to perform nearest neighbor searches using various distance metrics. It is most optimized for PyArrow Tables, as it uses the Rust Arrow library under the hood for fast computation.
 
 ## Installation
