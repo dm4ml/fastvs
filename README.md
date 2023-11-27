@@ -130,33 +130,43 @@ FastVS supports various distance metrics, including:
 
 #### Euclidean Distance
 
-The Euclidean distance between two points \( P \) and \( Q \) in \( N \)-dimensional space, with \( P = (p_1, p_2, ..., p_N) \) and \( Q = (q_1, q_2, ..., q_N) \), is defined as:
+The Euclidean distance between two points $ P $ and $ Q $ in $ N $-dimensional space, with $ P = (p_1, p_2, ..., p_N) $ and $ Q = (q_1, q_2, ..., q_N) $, is defined as:
 
+```math
 \[ d(P, Q) = \sqrt{\sum\_{i=1}^{N} (p_i - q_i)^2} \]
+```
 
 #### Manhattan Distance
 
-The Manhattan distance (also known as L1 norm) between two points \( P \) and \( Q \) in \( N \)-dimensional space is the sum of the absolute differences of their Cartesian coordinates:
+The Manhattan distance (also known as L1 norm) between two points $ P $ and $ Q $ in $ N $-dimensional space is the sum of the absolute differences of their Cartesian coordinates:
 
+```math
 \[ d(P, Q) = \sum\_{i=1}^{N} |p_i - q_i| \]
+```
 
 #### Cosine Similarity
 
-Cosine similarity measures the cosine of the angle between two vectors \( P \) and \( Q \) in an \( N \)-dimensional space. The distance based on cosine similarity is often expressed as \( 1 \) minus the cosine similarity:
+Cosine similarity measures the cosine of the angle between two vectors $ P $ and $ Q $ in an $ N $-dimensional space. It is defined as:
 
+```math
 \[ \text{Cosine Similarity}(P, Q) = \frac{P \cdot Q}{\|P\| \|Q\|} \]
+```
 
-where \( P \cdot Q \) is the dot product of vectors \( P \) and \( Q \), and \( \|P\| \) and \( \|Q\| \) are the magnitudes (Euclidean norms) of vectors \( P \) and \( Q \), respectively.
+where $ P \cdot Q $ is the dot product of vectors $P$ and $Q$, and $\|P\|$ and $ \|Q\| $ are the magnitudes (Euclidean norms) of vectors $ P $ and $ Q $, respectively.
 
 #### Inner Product
 
-The inner product (or dot product) between two vectors \( P \) and \( Q \) in an \( N \)-dimensional space is defined as the sum of the products of their corresponding components:
+The inner product (or dot product) between two vectors $ P $ and $ Q $ in an $ N $-dimensional space is defined as the sum of the products of their corresponding components:
 
+```math
 \[ \text{Inner Product}(P, Q) = P \cdot Q = \sum\_{i=1}^{N} p_i q_i \]
+```
 
 In some contexts, the inner product is used as a similarity measure (higher values indicate more similarity). If you use it as a distance measure in your library, you might define distance as the negative inner product (to ensure that lower values indicate closer matches):
 
+```math
 \[ \text{Inner Product Distance}(P, Q) = -\text{Inner Product}(P, Q) \]
+```
 
 ## Contribution
 
