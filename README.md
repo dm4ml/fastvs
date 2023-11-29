@@ -169,7 +169,7 @@ Contributions to FastVS are welcome! Please submit your pull requests to the rep
 To Dos:
 
 - [ ] Clean up rust code
-- [ ] Add CI and linting
+- [ ] Support f32
 
 ## License
 

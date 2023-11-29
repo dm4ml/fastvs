@@ -1,6 +1,6 @@
-.PHONY: test lint release install
+.PHONY: tests lint release install
 
-test:
+tests:
 	poetry run pytest
 
 lint:

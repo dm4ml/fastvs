@@ -13,7 +13,7 @@ use arrow::error::ArrowError;
 use arrow::ffi_stream::ArrowArrayStreamReader;
 use arrow::pyarrow::PyArrowType;
 use pdistance::{cosine_similarity, euclidean_distance, inner_product, manhattan_distance};
-use pyo3::exceptions::PyValueError;
+use pyo3::exceptions::{PyTypeError, PyValueError};
 use pyo3::prelude::*;
 use pyo3::types::PyString;
 use rayon::prelude::*;
@@ -96,8 +96,15 @@ fn compute_distance_batch(
                         .into_par_iter()
                         .map(move |i| {
                             let value_array = list_array.value(i);
-                            let value =
-                                value_array.as_any().downcast_ref::<Float64Array>().unwrap();
+                            let value = value_array
+                                .as_any()
+                                .downcast_ref::<Float64Array>()
+                                .ok_or_else(|| {
+                                    PyTypeError::new_err(format!(
+                                        "Expected Float64Array, found different type at index {}",
+                                        i
+                                    ))
+                                })?;
 
                             let distance = distance_fn(&value, &query_primitive);
                             Ok((i, distance))

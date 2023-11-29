@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "fastvs"
-version = "0.1.6"
-description = "Vector search on pandas dataframes."
+version = "0.1.8"
+description = "Vector search on arrow tables and dataframes."
 authors = ["Shreya Shankar <shreyashankar@berkeley.edu>"]
 license = "MIT"
 readme = "README.md"

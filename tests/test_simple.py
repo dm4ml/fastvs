@@ -25,6 +25,13 @@ def test_search_arrow():
     assert len(distances) == k
 
 
+def test_error_with_int_array():
+    sample_data = {"points": [[1, 2], [3, 4], [5, 6]]}
+    table = pa.Table.from_pandas(pd.DataFrame(sample_data))
+    with pytest.raises(TypeError):
+        search_arrow(table, "points", query_point, k, metric)
+
+
 def test_search_pandas():
     indices, distances = search_pandas(sample_df, column_name, query_point, k, metric)
     assert len(indices) == k
