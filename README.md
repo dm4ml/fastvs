@@ -152,7 +152,7 @@ The Manhattan distance (also known as L1 norm) between two points $P$ and $Q$ in
 
 #### Cosine Similarity
 
-Cosine similarity measures the cosine of the angle between two vectors$P$and$Q$in an$N$-dimensional space. It is defined as:
+Cosine similarity measures the cosine of the angle between two vectors $P$ and $Q$ in an $N$-dimensional space. It is defined as:
 
 ```math
  \text{Cosine Similarity}(P, Q) = \frac{P \cdot Q}{\|P\| \|Q\|}
@@ -162,7 +162,7 @@ where$P \cdot Q$is the dot product of vectors $P$ and $Q$, and $|P|$ and $|Q|$ a
 
 #### Inner Product
 
-The inner product (or dot product) between two vectors$P$and$Q$in an$N$-dimensional space is defined as the sum of the products of their corresponding components:
+The inner product (or dot product) between two vectors $P$ and $Q$ in an $N$-dimensional space is defined as the sum of the products of their corresponding components:
 
 ```math
  \text{Inner Product}(P, Q) = P \cdot Q = \sum_{i=1}^{N} p_i q_i
