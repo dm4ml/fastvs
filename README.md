@@ -6,6 +6,8 @@
 
 FastVS (Fast Vector Search) is a Python library designed for exact vector search in dataframes or tables. It provides functionality to work with both PyArrow Tables and Pandas DataFrames, allowing users to perform nearest neighbor searches using various distance metrics. It is most optimized for PyArrow Tables, as it uses the Rust Arrow library under the hood for zero-copy and vectorized computation.
 
+Note: FastVS only supports f64 (64-bit floating point) vectors as of now.
+
 Here is a rough comparison of the performance of FastVS vs. scipy.spatial.distance.cdist (over 10 trials):
 
 ![Dimension Comparison](experiments/plots/dimensions.png)
