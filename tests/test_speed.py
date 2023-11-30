@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from fastvs import search_arrow
 import time
-from .utils import numpy_knn, create_dataset
+from .utils import numpy_knn, create_dataset, scipy_knn
 
 DIM = 1536
 
@@ -28,14 +28,20 @@ def test_knn_speed_against_scipy(metric):
 
     # Get time from Rust implementation
     rust_time = execute_with_timer(
-        search_arrow, table, "points", query_point.tolist(), k, metric
+        search_arrow, table, "points", query_point, k, metric
     )
 
+    # Get time from SciPy implementation
+    data = table["points"].to_numpy()
+    scipy_time = execute_with_timer(scipy_knn, data, query_point, k, metric)
+
     # Get time from NumPy implementation
-    numpy_time = execute_with_timer(numpy_knn, table, query_point, k, metric)
+    numpy_time = execute_with_timer(numpy_knn, data, query_point, k, metric)
 
     print(f"Rust time: {rust_time}")
+    print(f"SciPy time: {scipy_time}")
     print(f"NumPy time: {numpy_time}")
+    assert rust_time < scipy_time
     assert rust_time < numpy_time
 
 
