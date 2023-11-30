@@ -8,7 +8,7 @@ FastVS (Fast Vector Search) is a Python library designed for exact vector search
 
 Note: FastVS only supports f64 (64-bit floating point) vectors as of now.
 
-Here is a rough comparison of the performance of FastVS vs. numpy and scipy.spatial.distance.cdist for cosine similarity (over 5 trials):
+Here is a rough comparison of the performance of FastVS vs. numpy and scipy.spatial.distance.cdist for cosine similarity (over 5 trials, on my Mac M1):
 
 ![Dimension Comparison](experiments/plots/dimensions.png)
 
